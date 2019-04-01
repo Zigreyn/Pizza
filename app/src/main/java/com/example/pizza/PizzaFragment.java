@@ -1,6 +1,7 @@
 package com.example.pizza;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +29,16 @@ public class  PizzaFragment extends Fragment {
         pizzaRecyclerView.setAdapter(captionedImagesAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         pizzaRecyclerView.setLayoutManager(layoutManager);
+
+        captionedImagesAdapter.setListener(new CaptionedImagesAdapter.Listener() {
+            @Override
+            public void onClick(int position) {
+                Intent intent = new Intent(getActivity(), PizzaDetailActivity.class);
+                intent.putExtra(PizzaDetailActivity.EXTRA_PIZZA_ID, position);
+                getActivity().startActivity(intent);
+            }
+        });
+
         return pizzaRecyclerView;
     }
 }
